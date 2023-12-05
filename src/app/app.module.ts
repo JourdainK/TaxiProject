@@ -10,7 +10,8 @@ import { LocationsComponent } from './components/locations/locations.component';
 import { AddressesComponent } from './components/addresses/addresses.component';
 import { TaxisComponent } from './components/taxis/taxis.component';
 import {HttpClientModule} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { NewclientComponent } from './components/newclient/newclient.component';
 
 @NgModule({
   declarations: [
@@ -20,13 +21,15 @@ import {FormsModule} from "@angular/forms";
     ClientsComponent,
     LocationsComponent,
     AddressesComponent,
-    TaxisComponent
+    TaxisComponent,
+    NewclientComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

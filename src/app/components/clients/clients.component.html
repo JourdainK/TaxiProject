@@ -1,1 +1,44 @@
 <p>clients works!</p>
+
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+  <ul class="navbar navbar-nav">
+    <li class="nav-item">
+      <form #scl="ngForm" (ngSubmit)="onSearch(scl.value)" class="form-inline">
+        <input type="text" name="nom" ngModel class="form-control" placeholder="Search">
+        <button type="submit" class="btn btn-success m-lg-2">Search</button>
+      </form>
+    </li>
+    <li>
+      <button (click)="onNewClient()" class="btn btn-success m-lg-2">New Client</button>
+    </li>
+  </ul>
+</nav>
+<!--ng - container can be replaced by <ng-templace class="div_1" [ngIf]="commentaires.length>0" [ngIfElse]="vide"> -->
+<ng-container *ngIf="clients">
+  <ng-container *ngIf="clients.length>0 else unknown">
+    <table class="table">
+      <thead>
+      <th>idclient</th>
+      <th>mail</th>
+      <th>nom</th>
+      <th>prenom</th>
+      <th>tel</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let client of clients">
+        <td>{{client.idclient}}</td>
+        <td>{{client.mail}}</td>
+        <td>{{client.nomcli}}</td>
+        <td>{{client.prenomcli}}</td>
+        <td>{{client.tel}}</td>
+        <td>
+          <button (click)="onEdit(client)" class="btn btn-success">Edit</button>
+          <button (click)="onDelete(client)" class="btn btn-danger">Delete</button>
+        </td>
+      </tbody>
+    </table>
+  </ng-container>
+  <ng-template #unknown>
+    <p>no clients found</p>
+  </ng-template>
+</ng-container>
