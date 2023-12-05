@@ -1,0 +1,55 @@
+<div class="container">
+  <form [formGroup]="clientFormGroup" *ngIf="clientFormGroup">
+
+    <div class="form-group">
+      <label>Client's ID : </label>
+      <input type="text" class="form-control" value="{{idclient}}" readonly="readonly">
+    </div>
+
+    <div class="form-control">
+      <label>Mail :</label>
+      <input type="email" class="form-control" formControlName="mail"
+          [ngClass]="{'is-invalid' : submitted && clientFormGroup.controls.mail.errors}">
+      <div *ngIf="submitted && clientFormGroup.controls.mail.errors" class="invalid-feedback">
+        <div *ngIf="clientFormGroup.controls.mail.errors.required">
+          Please enter a valid email address, this is a required field
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Last name :</label>
+      <input type="text" class="form-control" formControlName="nomcli"
+          [ngClass]="{'is-invalid' : submitted && clientFormGroup.controls.nomcli.errors}">
+      <div *ngIf="submitted && clientFormGroup.controls.nomcli.errors" class="invalid-feedback">
+        <div *ngIf="clientFormGroup.controls.nomcli.errors.required">
+          Please enter a Last name, this is a required field
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>First name :</label>
+      <input type="text" class="form-control" formControlName="prenomcli"
+          [ngClass]="{'is-invalid' : submitted && clientFormGroup.controls.prenomcli.errors}">
+      <div *ngIf="submitted && clientFormGroup.controls.prenomcli.errors" class="invalid-feedback">
+        <div *ngIf="clientFormGroup.controls.prenomcli.errors.required">
+          please enter a First name, this is a required field
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Phone : </label>
+      <input type="text" class="form-control" formControlName="tel"
+          [ngClass]="{'is-invalid' : submitted && clientFormGroup.controls.tel.errors}">
+      <div *ngIf="submitted && clientFormGroup.controls.tel.errors" class="invalid-feedback">
+        <div *ngIf="clientFormGroup.controls.tel.errors.required">
+          please enter a phone number, this is a required field
+        </div>
+      </div>
+
+    </div>
+    <button (click)="onSaveClient()" class="btn btn-success">Save</button>
+  </form>
+</div>
