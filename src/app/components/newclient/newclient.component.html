@@ -18,23 +18,23 @@
     </div>
 
     <div class="form-group">
-      <label>Last name :</label>
-      <input type="text" class="form-control" formControlName="nomcli"
-          [ngClass]="{'is-invalid' : submitted && clientFormGroup.controls.nomcli.errors}">
-      <div *ngIf="submitted && clientFormGroup.controls.nomcli.errors" class="invalid-feedback">
-        <div *ngIf="clientFormGroup.controls.nomcli.errors.required">
-          Please enter a Last name, this is a required field
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
       <label>First name :</label>
       <input type="text" class="form-control" formControlName="prenomcli"
           [ngClass]="{'is-invalid' : submitted && clientFormGroup.controls.prenomcli.errors}">
       <div *ngIf="submitted && clientFormGroup.controls.prenomcli.errors" class="invalid-feedback">
         <div *ngIf="clientFormGroup.controls.prenomcli.errors.required">
           please enter a First name, this is a required field
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Last name :</label>
+      <input type="text" class="form-control" formControlName="nomcli"
+             [ngClass]="{'is-invalid' : submitted && clientFormGroup.controls.nomcli.errors}">
+      <div *ngIf="submitted && clientFormGroup.controls.nomcli.errors" class="invalid-feedback">
+        <div *ngIf="clientFormGroup.controls.nomcli.errors.required">
+          Please enter a Last name, this is a required field
         </div>
       </div>
     </div>
@@ -50,6 +50,7 @@
       </div>
 
     </div>
+
     <button (click)="onSaveClient()" class="btn btn-success">Save</button>
   </form>
 </div>

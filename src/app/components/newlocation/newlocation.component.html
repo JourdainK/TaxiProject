@@ -1,0 +1,43 @@
+<div class="container">
+  <form [formGroup]="locationFormGroup" *ngIf="locationFormGroup">
+    <table>
+      <thead>
+      <th>ID</th>
+      <th>Date</th>
+      <th>Total km</th>
+      <th>Number of passenger(s)</th>
+      <th>Total Cost</th>
+      <th>Taxi</th>
+      <th>Start address</th>
+      <th>End address</th>
+      </thead>
+      <tbody>
+      <td *ngIf="loc ;else emptyData">{{loc.idlocation}}</td>
+      <ng-template #emptyData><td></td></ng-template>
+      <td><input type="date" formControlName="dateloc" class="form-control" placeholder="Date"></td>
+      <td><input type="number" formControlName="kmtotal" class="form-control" placeholder="Total km"></td>
+      <td><input type="number" formControlName="nbrpassengers" class="form-control" placeholder="Number of passenger(s)"></td>
+      <td *ngIf="loc?.total; else emptyPrice">{{loc?.total}}</td>
+      <ng-template #emptyPrice><td></td></ng-template>
+      <!-- TODO get list of taxis -->
+      <td>
+        <select formControlName="taxi">
+          <option *ngFor="let taxi of taxis" [value]="taxi.idtaxi">{{taxi.immatriculation}}</option>
+        </select>
+      </td>
+      <td>
+        <select formControlName="adressedep">
+            <!-- TODO change ToString -->
+          <option *ngFor="let address of addresses" [value]="address.idadresse">{{address.toString()}}</option>
+        </select>
+      </td>
+      <td>
+        <select formControlName="adressearr">
+          <!-- TODO change ToString -->
+          <option *ngFor="let address of addresses" [value]="address.idadresse">{{address.toString()}}</option>
+        </select>
+      </td>
+    </table>
+    <button class="btn btn-success" (click)="onSaveLocation()">Save</button>
+  </form>
+</div>

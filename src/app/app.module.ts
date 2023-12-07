@@ -12,6 +12,8 @@ import { TaxisComponent } from './components/taxis/taxis.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NewclientComponent } from './components/newclient/newclient.component';
+import { EditclientComponent } from './components/editclient/editclient.component';
+import { NewlocationComponent } from './components/newlocation/newlocation.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { NewclientComponent } from './components/newclient/newclient.component';
     LocationsComponent,
     AddressesComponent,
     TaxisComponent,
-    NewclientComponent
+    NewclientComponent,
+    EditclientComponent,
+    NewlocationComponent
   ],
   imports: [
     BrowserModule,

@@ -23,7 +23,6 @@ export class ClientsComponent implements OnInit{
     });
   }
 
-  //TODO
   onNewClient() {
     this.router.navigateByUrl('newClient')
   }
@@ -35,8 +34,7 @@ export class ClientsComponent implements OnInit{
         next : data => {
           //this.onSearch(c);
           const index = this.clients?.indexOf(c,0);
-          //TODO test -> delete if it's working correctly
-          alert("index = " + index);
+          alert("Client deleted successfully");
           if(!(index === undefined) && index > -1) {
             this.clients?.splice(index,1);
           }
@@ -47,9 +45,9 @@ export class ClientsComponent implements OnInit{
     }
   }
 
-  //TODO develop that later then check
+  //TODO check if it's working correctly
   onEdit(c:Client) {
-    this.router.navigateByUrl('updateClient/' + c.idclient);
+    this.router.navigateByUrl('editClient/' + c.idclient);
   }
 
 

@@ -1,0 +1,118 @@
+<div class="container">
+  <form [formGroup]="clientFormGroup" *ngIf="clientFormGroup">
+    <div class="form-group">
+      <label>Client's ID : </label>
+      <input type="text" class="form-control" formControlName="idclient" readonly>
+    </div>
+
+    <div class="form-group">
+      <label>Client's mail : </label>
+      <input type="text" class="form-control" formControlName="mail"
+          [ngClass]="{'is-invalid': submitted && clientFormGroup.controls.mail.errors}">
+      <div *ngIf="submitted && clientFormGroup.controls.mail.errors" class="invalid-feedback">
+        <div *ngIf="clientFormGroup.controls.mail.errors.required">
+          Client's mail is required
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label>Last name : </label>
+      <input type="text" class="form-control" formControlName="nomcli"
+          [ngClass]="{'is-invalid': submitted && clientFormGroup.controls.nomcli.errors}">
+      <div *ngIf="submitted && clientFormGroup.controls.nomcli.errors" class="invalid-feedback">
+        <div *ngIf="clientFormGroup.controls.nomcli.errors.required">
+          Client's Name is required
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>First name : </label>
+      <input type="text" class="form-control" formControlName="prenomcli"
+          [ngClass]="{'is-invalid': submitted && clientFormGroup.controls.prenomcli.errors}">
+      <div *ngIf="submitted && clientFormGroup.controls.prenomcli.errors" class="invalid-feedback">
+        <div *ngIf="clientFormGroup.controls.prenomcli.errors.required">
+          Client's First Name is required
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>phone number : </label>
+      <input type="text" class="form-control" formControlName="tel"
+          [ngClass]="{'is-invalid': submitted && clientFormGroup.controls.tel.errors}">
+      <div *ngIf="submitted && clientFormGroup.controls.tel.errors" class="invalid-feedback">
+        <div *ngIf="clientFormGroup.controls.tel.errors.required">
+          Client's phone number is required
+        </div>
+      </div>
+    </div>
+
+
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/clients">Back</a>
+        </li>
+        <li>
+          <button (click)="onUpdateClient()" class="btn btn-success">
+            Save
+          </button>
+        </li>
+        <li>
+
+          <button (click)="onSeeLocations()" class="btn btn-info">
+            Locations
+          </button>
+
+        </li>
+      </ul>
+    </nav>
+  </form>
+
+  <!-- ----------------Displays Location-------------------- -->
+
+
+  <ng-container *ngIf="locations">
+    <ng-container *ngIf="locations.length>0 else vide">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Location ID</th>
+            <th>Date</th>
+            <th>Distance(km)</th>
+            <th>Number of passengers</th>
+            <th>Price</th>
+            <th>Car </th>
+            <th>Start Address</th>
+            <th>End Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let loc of locations">
+            <td>{{loc.idlocation}}</td>
+            <td>{{loc.dateloc}}</td>
+            <td>{{loc.kmtotal}}</td>
+            <td>{{loc.nbrpassagers}}</td>
+            <td>{{loc.total}} €</td>
+            <td>{{loc.taxi.immatriculation}}</td>
+            <td>{{loc.adressedep.num}} {{loc.adressedep.rue}}, {{loc.adressedep.cp}} {{loc.adressedep.localite}}</td>
+            <td>{{loc.adressearr.num}} {{loc.adressearr.rue}}, {{loc.adressearr.cp}} {{loc.adressearr.localite}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </ng-container>
+    <ng-template #vide>
+      <div class="alert alert-info">
+        No locations for this client
+      </div>
+    </ng-template>
+  </ng-container>
+
+  <app-newlocation [cliact]="clientFormGroup"
+  (newLocation)="onAddLocation($event)"></app-newlocation>
+
+</div>
