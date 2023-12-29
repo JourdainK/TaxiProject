@@ -1,1 +1,44 @@
-<p>taxis works!</p>
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid justify-content-start">
+    <form class="d-flex" role="search" #scl="ngForm" (ngSubmit)="onSearch(scl.value)">
+      <label>Search by id : </label>
+      <input type="number" name="idtaxi" ngModel class="form-control container-fluid justify-content-evenly" placeholder="Search">
+      <button type="submit" class="btn btn-success ms-lg-2">
+        <span class="fa fa-search"></span>
+      </button>
+    </form>
+  </div>
+</nav>
+
+
+<ng-container *ngIf="Taxis">
+  <ng-container *ngIf="Taxis.length>0 else unknown">
+    <table class="table m-4">
+      <thead>
+      <th>taxi's ID</th>
+      <th>Registration</th>
+      <th>maximum passengers</th>
+      <th>price per kilometers</th>
+      <th>Locations</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let taxi of Taxis">
+        <td>{{taxi.idtaxi}}</td>
+        <td>{{taxi.immatriculation}}</td>
+        <td>{{taxi.nbremaxpassagers}}</td>
+        <td>{{taxi.prixkm}}</td>
+        <td>
+          <button (click)="onEdit(taxi)" class="btn btn-success m-2" type="submit">Edit</button>
+          <button (click)="onDelete(taxi)" class="btn btn-danger" type="submit">Delete</button>
+        </td>
+      </tbody>
+    </table>
+  </ng-container>
+</ng-container>
+<!-- TODO pick up here-->
+
+<ng-template #unknown>
+  <div class="alert alert-danger">
+    <h3>Unknown taxi</h3>
+  </div>
+</ng-template>
