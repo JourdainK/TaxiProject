@@ -54,12 +54,10 @@ ngOnInit(): void {
   onSaveLocation(): void {
     this.submitted = true;
 
-    // Get the selected Taxi and Adresse objects
     this.taxiService?.getTaxi(this.locationFormGroup?.value.taxi).subscribe(selectedTaxi => {
       this.adresseService?.getAdresse(this.locationFormGroup?.value.adressedep).subscribe(selectedAdressedep => {
         this.adresseService?.getAdresse(this.locationFormGroup?.value.adressearr).subscribe(selectedAdressearr => {
 
-          // Replace the id with the entire object
           this.locationFormGroup?.patchValue({
             taxi: selectedTaxi,
             adressedep: selectedAdressedep,
@@ -77,7 +75,11 @@ ngOnInit(): void {
               this.newLocation.emit(data);
             },
             error: err => {
-              alert(err.headers.get("error"));
+              if (err.headers.get("error").includes('Nombre de passagers trop important pour ce taxi')) {
+                alert(`Error The maximum number of passengers for this taxi is ${this.locationFormGroup?.value.taxi.nbremaxpassagers}`);
+              } else {
+                alert(err.headers.get("error"));
+              }
             }
           });
         });

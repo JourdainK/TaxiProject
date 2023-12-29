@@ -37,7 +37,7 @@ export class EditlocationComponent implements OnInit{
     this.LocationService.getLocation(this.idlocation).subscribe(
       location => {
         this.loc = location;
-        //console.log(this.location);
+        //console.log(this.loc);
       }
     );
 
@@ -59,8 +59,8 @@ export class EditlocationComponent implements OnInit{
           idlocation : [location.idlocation, Validators.required],
           dateloc : [location.dateloc, Validators.required],
           kmtotal : [location.kmtotal, Validators.required],
-          nbrpassagers : [location.nbrpassagers, Validators.required],
-          total : [location.total, Validators.required],
+          nbrpassagers : [location.nbrpassagers],
+          total : [location.total],
           taxi : [location.taxi, Validators.required],
           client : [location.client, Validators.required],
           adressedep : [location.adressedep, Validators.required],
@@ -75,7 +75,6 @@ export class EditlocationComponent implements OnInit{
       return;
     }
 
-    // Get the selected Taxi, Adresse, and Client objects
     const selectedTaxiId = this.locationFormGroup?.get('taxi')?.value;
     const selectedAdressedepId = this.locationFormGroup?.get('adressedep')?.value;
     const selectedAdressearrId = this.locationFormGroup?.get('adressearr')?.value;
@@ -86,7 +85,7 @@ export class EditlocationComponent implements OnInit{
         this.adresseService.getAdresse(selectedAdressearrId).subscribe(selectedAdressearr => {
           this.clientService.getClient(selectedClientId).subscribe(selectedClient => {
 
-            // Replace the id with the entire object
+
             this.locationFormGroup?.patchValue({
               taxi: selectedTaxi,
               adressedep: selectedAdressedep,
@@ -96,10 +95,15 @@ export class EditlocationComponent implements OnInit{
 
             this.LocationService.updateLocation(this.locationFormGroup?.value).subscribe(data => {
                 alert('Location\'s update is successful');
+                //https://stackoverflow.com/questions/45607077/how-to-refresh-page-in-angular-2
                 window.location.reload();
               },
               err => {
-                alert(err.headers.get("error"));
+                if (err.headers.get("error").includes('Nombre de passagers trop important pour ce taxi')) {
+                  alert(`Error The maximum number of passengers for this taxi is ${this.locationFormGroup?.value.taxi.nbremaxpassagers}`);
+                } else {
+                  alert(err.headers.get("error"));
+                }
               });
           });
         });

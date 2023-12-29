@@ -1,101 +1,119 @@
 <div class="container-fluid m-4 d-flex justify-content-center">
-  <div *ngIf="loc" class="card" style="width: auto;">
-    <div class="card-header">
-      <h3>Location Details</h3>
+  <div class="row">
+    <div class="col-md-6">
+      <br><br><br><br>
+      <div class="container-fluid m-4 d-flex justify-content-center">
+        <div *ngIf="loc" class="card" style="width: auto;">
+          <div class="card-header">
+            <h3>Location Details</h3>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">ID: {{ loc.idlocation }}</li>
+            <li class="list-group-item">Date: {{ loc.dateloc }}</li>
+            <li class="list-group-item">Kilometers: {{ loc.kmtotal }}</li>
+            <li class="list-group-item">Passengers: {{ loc.nbrpassagers }}</li>
+            <li class="list-group-item">Price: {{ loc.total }} €</li>
+            <li class="list-group-item">Taxi: {{ loc.taxi.immatriculation }}  ( id : {{ loc.taxi.idtaxi }} )</li>
+            <li class="list-group-item">Client: {{ loc.client.nomcli }} {{ loc.client.prenomcli }} (id : {{ loc.client.idclient }} )</li>
+            <li class="list-group-item">Starting point: {{ loc.adressedep.rue }}, {{ loc.adressedep.cp }}</li>
+            <li class="list-group-item">Arrival: {{ loc.adressearr.rue }}, {{ loc.adressearr.cp }}</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">ID: {{loc.idlocation}}</li>
-      <li class="list-group-item">Date: {{loc.dateloc}}</li>
-      <li class="list-group-item">Kilometers: {{loc.kmtotal}}</li>
-      <li class="list-group-item">Passengers: {{loc.nbrpassagers}}</li>
-      <li class="list-group-item">Price: {{loc.total}}</li>
-      <li class="list-group-item">Taxi: {{loc.taxi.immatriculation}}</li>
-      <li class="list-group-item">Client: {{loc.client.nomcli}} {{loc.client.prenomcli}}</li>
-      <li class="list-group-item">Starting point: {{loc.adressedep.rue}}, {{loc.adressedep.cp}}</li>
-      <li class="list-group-item">Arrival: {{loc.adressearr.rue}}, {{loc.adressearr.cp}}</li>
-    </ul>
+    <div class="col-md-6">
+      <div class="container-fluid d-flex justify-content-center">
+        <h5>Update the location : </h5>
+      </div>
+      <div class="container-fluid m-4 d-flex justify-content-center">
+        <div class="container-fluid m-4 d-flex justify-content-center">
+          <form [formGroup]="locationFormGroup" *ngIf="locationFormGroup">
+
+            <div class="form-group">
+              <label>Location's ID</label>
+              <input type="text" class="form-control" formControlName="idlocation" readonly/>
+            </div>
+
+            <div class="form-group">
+              <label>Date</label>
+              <input type="date" class="form-control" formControlName="dateloc"
+                     [ngClass]="{'is-invalid' : submitted && locationFormGroup.controls.dateloc.errors}"/>
+              <div *ngIf="submitted && locationFormGroup.controls.dateloc.errors" class="invalid-feedback">
+                <div *ngIf="locationFormGroup.controls.dateloc.errors.required">Date is required</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Kilometers</label>
+              <input type="number" class="form-control" formControlName="kmtotal"
+                     [ngClass]="{'is-invalid' : submitted && locationFormGroup.controls.kmtotal.errors}"/>
+              <div *ngIf="submitted && locationFormGroup.controls.kmtotal.errors" class="invalid-feedback">
+                <div *ngIf="locationFormGroup.controls.kmtotal.errors.required">
+                  Kilometers is required
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Passengers</label>
+              <input type="number" class="form-control" formControlName="nbrpassagers"
+                     [ngClass]="{'is-invalid' : submitted && locationFormGroup.controls.nbrpassagers}"/>
+              <div *ngIf="submitted && locationFormGroup.controls.nbrpassagers.errors" class="invalid-feedback">
+                <div *ngIf="locationFormGroup.controls.nbrpassagers.errors.required">
+                  Passengers is required
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Price</label>
+              <input type="number" class="form-control" formControlName="total" readonly
+                     [ngClass]="{'is-invalid' : submitted && locationFormGroup.controls.total}"/>
+              <div *ngIf="submitted && locationFormGroup.controls.total.errors" class="invalid-feedback">
+                <div *ngIf="locationFormGroup.controls.total.errors.required">
+                  Price is required
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Taxi</label>
+              <select formControlName="taxi" class="form-control">
+                <option *ngFor="let taxi of taxis" [value]=taxi.idtaxi> ID : {{ taxi.idtaxi }} ) {{ taxi.immatriculation }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Client</label>
+              <select formControlName="client" class="form-control">
+                <option *ngFor="let client of clients" [value]=client.idclient> ID : {{ client.idclient }}
+                  ) {{ client.nomcli }} {{ client.prenomcli }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Starting point</label>
+              <select formControlName="adressedep" class="form-control">
+                <option *ngFor="let adresse of addresses" [value]=adresse.idadresse> ID : {{ adresse.idadresse }}
+                  ) {{ adresse.rue }} {{ adresse.num }} -  {{ adresse.localite }} {{ adresse.cp }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Arrival</label>
+              <select formControlName="adressearr" class="form-control">
+                <option *ngFor="let adresse of addresses" [value]=adresse.idadresse> ID : {{ adresse.idadresse }}
+                  ) {{ adresse.rue }} {{ adresse.num }} -  {{ adresse.localite }} {{ adresse.cp }}
+                </option>
+              </select>
+            </div>
+            <button (click)="onUpdateLocation()" class="btn btn-success">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-
-
-<div class="container-fluid m-4 d-flex justify-content-center">
-  <form [formGroup]="locationFormGroup" *ngIf="locationFormGroup">
-
-    <div class="form-group">
-      <label>Location's ID</label>
-      <input type="text" class="form-control" formControlName="idlocation" readonly/>
-    </div>
-
-    <div class="form-group">
-      <label>Date</label>
-      <input type="date" class="form-control" formControlName="dateloc"
-        [ngClass]="{'is-invalid' : submitted && locationFormGroup.controls.dateloc.errors}"/>
-      <div *ngIf="submitted && locationFormGroup.controls.dateloc.errors" class="invalid-feedback">
-        <div *ngIf="locationFormGroup.controls.dateloc.errors.required">Date is required</div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>Kilometers</label>
-      <input type="number" class="form-control" formControlName="kmtotal"
-        [ngClass]="{'is-invalid' : submitted && locationFormGroup.controls.kmtotal.errors}"/>
-      <div *ngIf="submitted && locationFormGroup.controls.kmtotal.errors" class="invalid-feedback">
-        <div *ngIf="locationFormGroup.controls.kmtotal.errors.required">
-          Kilometers is required
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>Passengers</label>
-      <input type="number" class="form-control" formControlName="nbrpassagers"
-        [ngClass]="{'is-invalid' : submitted && locationFormGroup.controls.nbrpassagers}"/>
-      <div *ngIf="submitted && locationFormGroup.controls.nbrpassagers.errors" class="invalid-feedback">
-        <div *ngIf="locationFormGroup.controls.nbrpassagers.errors.required">
-          Passengers is required
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>Price</label>
-      <input type="number" class="form-control" formControlName="total" readonly
-        [ngClass]="{'is-invalid' : submitted && locationFormGroup.controls.total}"/>
-      <div *ngIf="submitted && locationFormGroup.controls.total.errors" class="invalid-feedback">
-        <div *ngIf="locationFormGroup.controls.total.errors.required">
-          Price is required
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>New Taxi</label>
-      <select formControlName="taxi" class="form-control">
-        <option *ngFor="let taxi of taxis" [value]=taxi.idtaxi> ID : {{taxi.idtaxi}} ) {{taxi.immatriculation}}</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Client</label>
-      <select formControlName="client" class="form-control">
-        <option *ngFor="let client of clients" [value]=client.idclient> ID : {{client.idclient}} ) {{client.nomcli}} {{client.prenomcli}}</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Starting point</label>
-      <select formControlName="adressedep" class="form-control">
-        <option *ngFor="let adresse of addresses" [value]=adresse.idadresse> ID : {{adresse.idadresse}} ) {{adresse.rue}} {{adresse.num}} -  {{adresse.localite}} {{adresse.cp}}</option>))
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label>Arrival</label>
-      <select formControlName="adressearr" class="form-control">
-        <option *ngFor="let adresse of addresses" [value]=adresse.idadresse> ID : {{adresse.idadresse}} ) {{adresse.rue}} {{adresse.num}} -  {{adresse.localite}} {{adresse.cp}}</option>))
-      </select>
-    </div>
-    <button (click)="onUpdateLocation()" class="btn btn-success">Save</button>
-  </form>
-
 </div>

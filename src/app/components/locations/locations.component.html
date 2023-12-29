@@ -1,13 +1,14 @@
 <nav class="navbar bg-body-tertiary">
   <div class="container-fluid justify-content-start">
     <form class="d-flex" role="search" #scl="ngForm" (ngSubmit)="onSearch(scl.value)">
+      <label>Search by id : </label>
       <input type="number" name="idlocation" ngModel class="form-control container-fluid justify-content-evenly" placeholder="Search">
       <button type="submit" class="btn btn-success ms-lg-2">
         <span class="fa fa-search"></span>
       </button>
     </form>
     <button (click)="onSeeAllLocations()" class="btn btn-outline-success m-2" type="submit">See all locations</button>
-    <button (click)="onNewLocation()" class="btn btn-outline-success m-2" type="submit">New Location</button>
+    <!-- <button (click)="onNewLocation()" class="btn btn-outline-success m-2" type="submit">New Location</button> -->
   </div>
 
 </nav>
