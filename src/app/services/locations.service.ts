@@ -23,12 +23,13 @@ export class LocationsService {
     return this.http.put<Location>(this.host + '/locations/' + location.idlocation, location);
   }
 
-  public createLocation(location: Location): Observable<Location> {
+  public createLocation(location : Location): Observable<Location> {
+    alert(location + "create location");
     return this.http.post<Location>(this.host + '/locations', location);
   }
 
-  public deleteLocation(location: Location): Observable<Location> {
-    return this.http.delete<Location>(this.host + '/locations/' + location.idlocation);
+  public deleteLocation(id : number): Observable<Location> {
+    return this.http.delete<Location>(this.host + '/locations/' + id);
   }
 
   public getAllLocations(): Observable<Location[]> {

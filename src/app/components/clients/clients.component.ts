@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {Client} from "../../entities/clients.entities";
 
 
+
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
@@ -21,6 +22,7 @@ export class ClientsComponent implements OnInit{
     this.clientService.getClientByNom(value.nomcli).subscribe({
       next: data => (this.clients = data)
     });
+
   }
 
   onNewClient() {
@@ -45,11 +47,8 @@ export class ClientsComponent implements OnInit{
     }
   }
 
-  //TODO check if it's working correctly
   onEdit(c:Client) {
     this.router.navigateByUrl('editClient/' + c.idclient);
   }
-
-
 
 }

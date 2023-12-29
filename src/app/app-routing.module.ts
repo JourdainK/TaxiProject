@@ -7,6 +7,7 @@ import {LocationsComponent} from "./components/locations/locations.component";
 import {AddressesComponent} from "./components/addresses/addresses.component";
 import {NewclientComponent} from "./components/newclient/newclient.component";
 import {EditclientComponent} from "./components/editclient/editclient.component";
+import {EditlocationComponent} from "./components/editlocation/editlocation.component";
 //put all the routes here
 
 
@@ -18,6 +19,7 @@ export const routes: Routes = [
   {path :'addresses', component: AddressesComponent},
   {path : "newClient", component: NewclientComponent},
   {path : "editClient/:idclient", component: EditclientComponent},
+  {path: "editLocation/:idlocation", component: EditlocationComponent},
   //wildcard route, redirect to home, if the user types a wrong url
   {path: '**', redirectTo: ''}
   //tested and working

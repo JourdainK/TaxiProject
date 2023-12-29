@@ -6,6 +6,8 @@ import {AddressesService} from "../../services/addresses.service";
 import {Adresse} from "../../entities/addresses.entities";
 import {TaxisService} from "../../services/taxis.service";
 import {Taxi} from "../../entities/taxis.entities";
+import {Client} from "../../entities/clients.entities";
+import {ClientsService} from "../../services/clients.service";
 import {ActivatedRoute} from '@angular/router';
 import {formatDate} from "@angular/common";
 
@@ -28,37 +30,58 @@ export class NewlocationComponent implements OnInit{
               activatedRoute: ActivatedRoute) {
   }
 
-  ngOnInit(): void {
+
+ngOnInit(): void {
+  this.taxiService.getAllTaxis().subscribe(taxis => {
+    this.taxis = taxis;
+  });
+
+  this.adresseService.getAllAddresses().subscribe(addresses => {
+    this.addresses = addresses;
+  });
 
     this.locationFormGroup = this.fb.group({
-      dateloc: [formatDate(new Date(), 'yyyy-MM-dd', 'en')]
+      dateloc: [formatDate(new Date(), 'yyyy-MM-dd', 'en')],
+      kmtotal: [0, Validators.required],
+      nbrpassagers: [0, Validators.required],
+      taxi: [0, Validators.required],
+      adressedep: [0, Validators.required],
+      adressearr: [0, Validators.required]
     });
+}
 
-    this.taxiService.getAllTaxis().subscribe(taxis => {
-      this.taxis = taxis;
-    });
-
-    this.adresseService.getAllAddresses().subscribe(addresses => {
-      this.addresses = addresses;
-    });
-  }
 
   onSaveLocation(): void {
     this.submitted = true;
-    var clt = this.cliact?.value;
-    clt.client = this.cliact?.value;
-    this.locationService.createLocation(this.locationFormGroup?.value).
-      subscribe({
-        next: data => {
-          alert('sauvegarde ok');
-          this.loc = data;
-          this.newLocation.emit(data);
-        },
-        error: err => {
-          alert(err.headers.get("error"));
-        }
-    })
-  }
 
-  //TODO check if it works
+    // Get the selected Taxi and Adresse objects
+    this.taxiService?.getTaxi(this.locationFormGroup?.value.taxi).subscribe(selectedTaxi => {
+      this.adresseService?.getAdresse(this.locationFormGroup?.value.adressedep).subscribe(selectedAdressedep => {
+        this.adresseService?.getAdresse(this.locationFormGroup?.value.adressearr).subscribe(selectedAdressearr => {
+
+          // Replace the id with the entire object
+          this.locationFormGroup?.patchValue({
+            taxi: selectedTaxi,
+            adressedep: selectedAdressedep,
+            adressearr: selectedAdressearr
+          });
+
+          var newloc = this.locationFormGroup?.value;
+          newloc.client = this.cliact?.value;
+
+          this.locationService.createLocation(newloc).
+          subscribe({
+            next: data => {
+              alert('sauvegarde ok');
+              this.loc = data;
+              this.newLocation.emit(data);
+            },
+            error: err => {
+              alert(err.headers.get("error"));
+            }
+          });
+        });
+      });
+    });
+  }
 }

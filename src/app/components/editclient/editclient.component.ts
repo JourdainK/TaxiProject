@@ -51,7 +51,6 @@ export class EditclientComponent implements OnInit{
       });
   }
 
-  //TODO : see Locations of client and test
   onSeeLocations(){
     //get client by his id
     this.clientService.getClient(this.idclient).subscribe(
@@ -59,43 +58,6 @@ export class EditclientComponent implements OnInit{
         this.locationService.getLocationByClient(client).subscribe(
           data => {
             this.locations = data;
-            //for each location, get the adresse and the taxi => not needed , backend does that for us
-            /*this.locations.forEach(location => {
-              this.locationService.getLocation(location.idlocation).subscribe(
-                data => {
-                  location = data;
-                  this.adresseService.getAdresse(location.adressearr.idadresse).subscribe(
-                    data => {
-                      location.adressearr = data;
-                    },
-                    err => {
-                      alert(err.headers.get("error"));
-                    }
-                  );
-                  this.adresseService.getAdresse(location.adressedep.idadresse).subscribe(
-                    data => {
-                      location.adressedep = data;
-                    },
-                    err => {
-                      alert(err.headers.get("error"));
-                    }
-                  );
-                  this.taxiService.getTaxi(location.taxi.idtaxi).subscribe(
-                    data => {
-                      location.taxi = data;
-                    },
-                    err => {
-                      alert(err.headers.get("error"));
-                    }
-                  );
-                },
-                err => {
-                  alert(err.headers.get("error"));
-                }
-              );
-            });
-
-             */
           },
           err => {
             alert(err.headers.get("error"));
@@ -108,7 +70,6 @@ export class EditclientComponent implements OnInit{
     );
   }
 
-  //TODO check if all is working
   onAddLocation(location: Location){
     this.locations?.push(location);
   }

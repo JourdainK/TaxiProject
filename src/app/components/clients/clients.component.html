@@ -1,24 +1,18 @@
-<nav class="navbar navbar-expand-sm bg-light navbar-light">
-  <ul class="navbar navbar-nav">
-    <li>
-      <form #scl="ngForm" (ngSubmit)="onSearch(scl.value)" class="form-inline">
-        <input type="text" name="nomcli" ngModel class="form-control" placeholder="Search">
-        <button type="submit" class="btn btn-success ms-lg-2">
-          <span class="fa fa-search">
-
-          </span>
-        </button>
-      </form>
-    </li>
-    <li>
-      <button (click)="onNewClient()" class="btn btn-success ms-lg-2">New Client</button>
-    </li>
-  </ul>
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid justify-content-start">
+    <form class="d-flex" role="search" #scl="ngForm" (ngSubmit)="onSearch(scl.value)">
+      <input type="text" name="nomcli" ngModel class="form-control container-fluid justify-content-evenly" placeholder="Search">
+      <button type="submit" class="btn btn-success ms-lg-2">
+        <span class="fa fa-search"></span>
+      </button>
+    </form>
+    <button (click)="onNewClient()" class="btn btn-outline-success m-2" type="submit">New Client</button>
+  </div>
 </nav>
 <ng-container *ngIf="clients">
   <!--ng - container can be replaced by <ng-templace class="div_1" [ngIf]="commentaires.length>0" [ngIfElse]="vide"> -->
   <ng-container *ngIf="clients.length>0 else unknown">
-    <table class="table">
+    <table class="table m-4">
       <thead>
       <th>idclient</th>
       <th>mail</th>
@@ -34,7 +28,7 @@
         <td>{{client.prenomcli}}</td>
         <td>{{client.tel}}</td>
         <td>
-          <button (click)="onEdit(client)" class="btn btn-success">Edit</button>
+          <button (click)="onEdit(client)" class="btn btn-success m-2">Edit</button>
           <button (click)="onDelete(client)" class="btn btn-danger">Delete</button>
         </td>
       </tbody>

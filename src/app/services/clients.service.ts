@@ -26,7 +26,7 @@ export class ClientsService {
   }
 
   getAllClients(): Observable<Client[]> {
-    return this.http.get<Client[]>(this.host + '/clients');
+    return this.http.get<Client[]>(this.host + '/clients/all');
   }
 
   createClient(client: Client): Observable<Client> {

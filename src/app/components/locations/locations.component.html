@@ -1,1 +1,50 @@
-<p>locations works!</p>
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid justify-content-start">
+    <form class="d-flex" role="search" #scl="ngForm" (ngSubmit)="onSearch(scl.value)">
+      <input type="number" name="idlocation" ngModel class="form-control container-fluid justify-content-evenly" placeholder="Search">
+      <button type="submit" class="btn btn-success ms-lg-2">
+        <span class="fa fa-search"></span>
+      </button>
+    </form>
+    <button (click)="onSeeAllLocations()" class="btn btn-outline-success m-2" type="submit">See all locations</button>
+    <button (click)="onNewLocation()" class="btn btn-outline-success m-2" type="submit">New Location</button>
+  </div>
+
+</nav>
+
+<ng-container *ngIf="Locations">
+  <ng-container *ngIf="Locations.length>0 else unknown">
+    <table class="table m-4">
+      <thead>
+      <th>Location's ID</th>
+      <th>Date</th>
+      <th>Kilometers</th>
+      <th>Passengers</th>
+      <th>Price</th>
+      <th>Taxi</th>
+      <th>Client</th>
+      <th>Starting point</th>
+      <th>Destination</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let location of Locations">
+        <td>{{location.idlocation}}</td>
+        <td>{{location.dateloc}}</td>
+        <td>{{location.kmtotal}}</td>
+        <td>{{location.nbrpassagers}}</td>
+        <td>{{location.total}} €</td>
+        <td>{{location.taxi.immatriculation}}</td>
+        <td>{{location.client.idclient}} - {{location.client.nomcli}} <br> {{location.client.prenomcli}}</td>
+        <td>{{location.adressedep.rue}} {{location.adressedep.num}} <br> {{location.adressedep.cp}} {{location.adressedep.localite}} </td>
+        <td>{{location.adressearr.rue}} {{location.adressearr.num}} <br> {{location.adressearr.cp}} {{location.adressearr.localite}}  </td>
+        <td>
+          <button (click)="onEdit(location)" class="btn btn-success m-2" type="submit">Edit</button>
+          <button (click)="onDelete(location)" class="btn btn-danger" type="submit">Delete</button>
+        </td>
+      </tbody>
+    </table>
+  </ng-container>
+  <ng-template #unknown>
+    <p>No location found</p>
+  </ng-template>
+</ng-container>
