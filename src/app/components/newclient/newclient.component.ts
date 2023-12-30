@@ -24,7 +24,6 @@ export class NewclientComponent implements OnInit{
   }
 
 
-  // subscribe deprecated
   onSaveClient() {
     this.submitted = true;
     if(this.clientFormGroup?.invalid) { return; }

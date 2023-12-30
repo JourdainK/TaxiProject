@@ -1,1 +1,45 @@
-<p>addresses works!</p>
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid justify-content-start">
+    <form class="d-flex" role="search" #scl="ngForm" (ngSubmit)="onSearch(scl.value)">
+      <input type="number" name="idadresse" ngModel class="form-control container-fluid justify-content-evenly" placeholder="Search">
+      <button type="submit" class="btn btn-success ms-lg-2">
+        <span class="fa fa-search"></span>
+      </button>
+    </form>
+    <button (click)="onNewAddress()" class="btn btn-outline-success m-2" type="submit">New Address</button>
+  </div>
+</nav>
+
+<ng-container *ngIf="Adresses">
+  <ng-container *ngIf="Adresses.length>0 else unknown">
+    <table class="table m-4">
+      <thead>
+        <th>Address' ID</th>
+        <th>Town</th>
+        <th>Zip Code</th>
+        <th>Street</th>
+        <th>Street Number</th>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let adresse of Adresses">
+          <td>{{adresse.idadresse}}</td>
+          <td>{{adresse.localite}}</td>
+          <td>{{adresse.cp}}</td>
+          <td>{{adresse.rue}}</td>
+          <td>{{adresse.num}}</td>
+          <td>
+            <button (click)="onEdit(adresse)" class="btn btn-outline-success m-2" type="submit">Edit </button>
+            <button (click)="onDelete(adresse)" class="btn btn-outline-danger m-2" type="submit">Delete </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+
+  <ng-template #unknown>
+    <div class="alert alert-warning">
+      <h2>Sorry, no address has been found</h2>
+    </div>
+  </ng-template>
+</ng-container>
