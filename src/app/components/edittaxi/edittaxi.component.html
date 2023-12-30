@@ -1,0 +1,81 @@
+<div class="container-fluid d-flex justify-content-center">
+  <form [formGroup]="taxiFormGroup" *ngIf="taxiFormGroup">
+    <div class="form-group">
+      <label>Taxi's ID</label>
+      <input type="number" class="form-control" formControlName="idtaxi" readonly>
+    </div>
+
+    <div class="form-group">
+      <label>Registration</label>
+      <input type="text" class="form-control" formControlName="immatriculation" placeholder="T-X**-000 or T-L**-000"
+        [ngClass]="{'is-invalid' : submitted && taxiFormGroup.controls.immatriculation.errors}"/>
+      <div *ngIf="submitted && taxiFormGroup.controls.immatriculation.errors" class="invalid-feedback">
+        <div *ngIf="taxiFormGroup.controls.immatriculation.errors.required">Registration is required</div>
+        <div *ngIf="taxiFormGroup.controls.immatriculation.errors.pattern">Registration format is invalid [T-X**-000 or T-L**-000]</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Maximum of passengers</label>
+      <input type="number" class="form-control" formControlName="nbremaxpassagers"
+             [ngClass]="{'is-invalid' : submitted && taxiFormGroup.controls.nbremaxpassagers.errors}"/>
+      <div *ngIf="submitted && taxiFormGroup.controls.nbremaxpassagers.errors" class="invalid-feedback">
+        <div *ngIf="taxiFormGroup.controls.nbremaxpassagers.errors.required">Maximum of passengers is required</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Price per kilometers</label>
+      <input type="number" step="0.05" class="form-control" formControlName="prixkm"
+             [ngClass]="{'is-invalid' : submitted && taxiFormGroup.controls.prixkm.errors}"/>
+      <div *ngIf="submitted && taxiFormGroup.controls.prixkm.errors" class="invalid-feedback">
+        <div *ngIf="taxiFormGroup.controls.prixkm.errors.required">Price per kilometers is required</div>
+      </div>
+    </div>
+
+    <button (click)="onUpdateTaxi()" class="btn btn-success m-4">Save</button>
+    <button (click)="onSeeLocations()" class="btn btn-info m-4">Locations</button>
+
+  </form>
+</div>
+
+<!-- displaying the locations of the taxi -->
+
+<ng-container *ngIf="locations">
+  <ng-container *ngIf="locations.length>0 else unknown">
+    <div class="container-fluid d-flex justify-content-center">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>Location ID</th>
+          <th>Date</th>
+          <th>Distance(km)</th>
+          <th>Number of passengers</th>
+          <th>Price</th>
+          <th>Car </th>
+          <th>Start Address</th>
+          <th>End Address</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let loc of locations">
+          <td>{{loc.idlocation}}</td>
+          <td>{{loc.dateloc}}</td>
+          <td>{{loc.kmtotal}}</td>
+          <td>{{loc.nbrpassagers}}</td>
+          <td>{{loc.total}} €</td>
+          <td>{{loc.taxi.immatriculation}}</td>
+          <td>{{loc.adressedep.num}} {{loc.adressedep.rue}}, {{loc.adressedep.cp}} {{loc.adressedep.localite}}</td>
+          <td>{{loc.adressearr.num}} {{loc.adressearr.rue}}, {{loc.adressearr.cp}} {{loc.adressearr.localite}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+</ng-container>
+<ng-template #unknown>
+  <div class="container-fluid d-flex justify-content-center">
+    <h3>No locations for this taxi</h3>
+  </div>
+</ng-template>
+

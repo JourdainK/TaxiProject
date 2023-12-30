@@ -21,6 +21,7 @@ export class TaxisComponent implements OnInit{
     }
 
     onSearch(value: any) {
+      this.Taxis = [];
       if (value.idtaxi) {
         this.taxiService.getTaxi(value.idtaxi).subscribe({
           next:data=>{
@@ -40,7 +41,7 @@ export class TaxisComponent implements OnInit{
     }
 
     onEdit(t: Taxi) {
-      this.router.navigateByUrl('editTaxi/' + t.idtaxi);
+      this.router.navigateByUrl('edittaxi/' + t.idtaxi);
     }
 
     onDelete(t: Taxi){
@@ -62,8 +63,9 @@ export class TaxisComponent implements OnInit{
     }
 
     onNewTaxi(){
-      this.router.navigateByUrl('newTaxi/');
+      this.router.navigateByUrl('newtaxi');
     }
 
 
+  protected readonly length = length;
 }

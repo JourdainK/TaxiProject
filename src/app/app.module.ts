@@ -15,6 +15,8 @@ import { NewclientComponent } from './components/newclient/newclient.component';
 import { EditclientComponent } from './components/editclient/editclient.component';
 import { NewlocationComponent } from './components/newlocation/newlocation.component';
 import { EditlocationComponent } from './components/editlocation/editlocation.component';
+import { EdittaxiComponent } from './components/edittaxi/edittaxi.component';
+import { NewtaxiComponent } from './components/newtaxi/newtaxi.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { EditlocationComponent } from './components/editlocation/editlocation.co
     NewclientComponent,
     EditclientComponent,
     NewlocationComponent,
-    EditlocationComponent
+    EditlocationComponent,
+    EdittaxiComponent,
+    NewtaxiComponent
   ],
   imports: [
     BrowserModule,

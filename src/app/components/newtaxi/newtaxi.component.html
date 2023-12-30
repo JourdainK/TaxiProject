@@ -1,0 +1,38 @@
+<<div class="container-fluid d-flex justify-content-center">
+  <form [formGroup]="taxiFormGroup" *ngIf="taxiFormGroup">
+    <div class="form-group">
+      <label>Taxi's ID</label>
+      <input type="number" class="form-control" value="{{idtaxi}}" formControlName="idtaxi" readonly>
+    </div>
+
+    <div class="form-group">
+      <label>Registration</label>
+      <input type="text" class="form-control" formControlName="immatriculation" placeholder="T-X**-000 or T-L**-000"
+             [ngClass]="{'is-invalid' : submitted && taxiFormGroup.controls.immatriculation.errors}"/>
+      <div *ngIf="submitted && taxiFormGroup.controls.immatriculation.errors" class="invalid-feedback">
+        <div *ngIf="taxiFormGroup.controls.immatriculation.errors.required">Registration is required</div>
+        <div *ngIf="taxiFormGroup.controls.immatriculation.errors.pattern">Registration format is invalid [T-X**-000 or T-L**-000]</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Maximum of passengers</label>
+      <input type="number" class="form-control" formControlName="nbremaxpassagers"
+             [ngClass]="{'is-invalid' : submitted && taxiFormGroup.controls.nbremaxpassagers.errors}"/>
+      <div *ngIf="submitted && taxiFormGroup.controls.nbremaxpassagers.errors" class="invalid-feedback">
+        <div *ngIf="taxiFormGroup.controls.nbremaxpassagers.errors.required">Maximum of passengers is required</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Price per kilometers</label>
+      <input type="number" step="0.05" class="form-control" formControlName="prixkm"
+             [ngClass]="{'is-invalid' : submitted && taxiFormGroup.controls.prixkm.errors}"/>
+      <div *ngIf="submitted && taxiFormGroup.controls.prixkm.errors" class="invalid-feedback">
+        <div *ngIf="taxiFormGroup.controls.prixkm.errors.required">Price per kilometers is required</div>
+      </div>
+    </div>
+
+    <button (click)="onSaveTaxi()" class="btn btn-success m-4">Save</button>
+  </form>
+</div>

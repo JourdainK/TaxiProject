@@ -19,6 +19,7 @@ export class LocationsComponent implements OnInit{
 
     }
   onSearch(value: any) {
+    this.Locations= [];
     if (value.idlocation) {
       this.locationService.getLocation(value.idlocation).subscribe({
         next:data=>{
