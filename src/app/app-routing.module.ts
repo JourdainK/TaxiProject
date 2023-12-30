@@ -11,6 +11,7 @@ import {EditlocationComponent} from "./components/editlocation/editlocation.comp
 import {EdittaxiComponent} from "./components/edittaxi/edittaxi.component";
 import {NewtaxiComponent} from "./components/newtaxi/newtaxi.component";
 import {NewaddressComponent} from "./components/newaddress/newaddress.component";
+import {EditaddressComponent} from "./components/editaddress/editaddress.component";
 //put all the routes here
 
 
@@ -26,6 +27,7 @@ export const routes: Routes = [
   {path: "edittaxi/:idtaxi", component: EdittaxiComponent},
   {path: "newtaxi", component: NewtaxiComponent},
   {path: "newAddress", component: NewaddressComponent},
+  {path : "editAddress/:idadresse", component: EditaddressComponent},
   //wildcard route, redirect to home, if the user types a wrong url
   {path: '**', redirectTo: ''}
   //tested and working

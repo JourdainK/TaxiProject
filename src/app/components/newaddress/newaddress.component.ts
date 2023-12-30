@@ -21,7 +21,7 @@ export class NewaddressComponent implements OnInit{
       cp: ["", Validators.required, Validators.min(1000), Validators.max(9999)],
       localite: ["", Validators.required],
       rue: ["", Validators.required],
-      num: ["", Validators.required],
+      num: ["", Validators.required]
     });
 
 

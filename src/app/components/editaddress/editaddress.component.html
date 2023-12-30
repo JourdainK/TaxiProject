@@ -1,1 +1,50 @@
-<p>editaddress works!</p>
+<div class="container">
+  <form [formGroup]="addressFormGroup" *ngIf="addressFormGroup">
+    <div class="form-group">
+      <label>Address' ID</label>
+      <input type="text" class="form-control" formControlName="id" value="{{idadresse}}" readonly="readonly">
+    </div>
+
+    <div class="form-group">
+      <label>Street :</label>
+      <input type="text" class="form-control" formControlName="rue"
+             [ngClass]="{'is-invalid' : submitted && addressFormGroup.controls.rue.errors}"/>
+      <div *ngIf="submitted && addressFormGroup.controls.rue.errors" class="invalid-feedback">
+        <div *ngIf="addressFormGroup.controls.rue.errors.required">Street is required</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Street number :</label>
+      <input type="text" class="form-control" formControlName="num"
+             [ngClass]="{'is-invalid' : submitted && addressFormGroup.controls.num.errors}"/>
+      <div *ngIf="submitted && addressFormGroup.controls.num.errors" class="invalid-feedback">
+        <div *ngIf="addressFormGroup.controls.num.errors.required">Street number is required</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Postal code :</label>
+      <input type="number" class="form-control" formControlName="cp"
+             [ngClass]="{'is-invalid' : submitted && addressFormGroup.controls.cp.errors}" min="1000" max="9999"/>
+      <div *ngIf="submitted && addressFormGroup.controls.cp.errors" class="invalid-feedback">
+        <div *ngIf="addressFormGroup.controls.cp.errors.required">Postal code is required</div>
+        <div *ngIf="addressFormGroup.controls.cp.errors.min">Postal code must be a number greater than or equal to 1000</div>
+        <div *ngIf="addressFormGroup.controls.cp.errors.max">Postal code must be a number less than or equal to 9999</div>
+      </div>
+    </div>
+
+    <!-- Should be a list with all the towns of Belgium -->
+    <div class="form-group">
+      <label>Town :</label>
+      <input type="text" class="form-control" formControlName="localite"
+             [ngClass]="{'is-invalid' : submitted && addressFormGroup.controls.localite.errors}"/>
+      <div *ngIf="submitted && addressFormGroup.controls.localite.errors" class="invalid-feedback">
+        <div *ngIf="addressFormGroup.controls.localite.errors.required">Town is required</div>
+      </div>
+    </div>
+
+    <button (click)="onUpdateAddress()" class="btn btn-success mt-4">Save</button>
+
+  </form>
+</div>
