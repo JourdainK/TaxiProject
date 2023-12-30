@@ -8,7 +8,7 @@
     <div class="form-group">
       <label>Street :</label>
       <input type="text" class="form-control" formControlName="rue"
-        [ngClass]="{'is-invalid' : submitted && adresseFormGroup.controls.mail.errors}"/>
+        [ngClass]="{'is-invalid' : submitted && adresseFormGroup.controls.rue.errors}"/>
       <div *ngIf="submitted && adresseFormGroup.controls.rue.errors" class="invalid-feedback">
         <div *ngIf="adresseFormGroup.controls.rue.errors.required">Street is required</div>
       </div>
@@ -25,11 +25,12 @@
 
     <div class="form-group">
       <label>Postal code :</label>
-      <input type="text" class="form-control" formControlName="cp"
-        [ngClass]="{'is-invalid' : submitted && adresseFormGroup.controls.cp.errors}"/>
+      <input type="number" class="form-control" formControlName="cp"
+             [ngClass]="{'is-invalid' : submitted && adresseFormGroup.controls.cp.errors}" min="1000" max="9999"/>
       <div *ngIf="submitted && adresseFormGroup.controls.cp.errors" class="invalid-feedback">
         <div *ngIf="adresseFormGroup.controls.cp.errors.required">Postal code is required</div>
-        <div *ngIf="adresseFormGroup.controls.cp.errors.pattern">Postal code must be a number between 1000 and 9999</div>
+        <div *ngIf="adresseFormGroup.controls.cp.errors.min">Postal code must be a number greater than or equal to 1000</div>
+        <div *ngIf="adresseFormGroup.controls.cp.errors.max">Postal code must be a number less than or equal to 9999</div>
       </div>
     </div>
 

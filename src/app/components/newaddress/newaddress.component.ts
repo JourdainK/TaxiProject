@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { AddressesService } from "../../services/addresses.service";
 import { Adresse } from "../../entities/addresses.entities";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-newaddress',
@@ -17,14 +17,16 @@ export class NewaddressComponent implements OnInit{
   constructor(private fb: FormBuilder, private addressService: AddressesService, private router: Router) { }
     ngOnInit(): void {
     this.adresseFormGroup = this.fb.group({
+      id: [this.idadresse],
       cp: ["", Validators.required, Validators.min(1000), Validators.max(9999)],
       localite: ["", Validators.required],
       rue: ["", Validators.required],
-      numero: ["", Validators.required],
-
+      num: ["", Validators.required],
     });
 
+
   }
+
 
   onSaveAddress(){
     this.submitted = true;
