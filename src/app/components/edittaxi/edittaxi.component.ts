@@ -5,6 +5,7 @@ import {TaxisService} from "../../services/taxis.service";
 import {LocationsService} from "../../services/locations.service";
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "../../entities/locations.entities";
+import {formatDate} from "@angular/common";
 
 
 @Component({
@@ -44,6 +45,24 @@ export class EdittaxiComponent implements OnInit {
     this.taxiService.getTaxi(this.idtaxi).subscribe(
       taxi => {
         this.locationService.getLocationByTaxi(taxi).subscribe(
+          data => {
+            this.locations = data;
+          }
+        );
+      }
+    );
+  }
+
+  onSeeLocationBetweenDates(){
+    this.taxiService.getTaxi(this.idtaxi).subscribe(
+      taxi => {
+        let date1 = this.taxiFormGroup?.get('datestart')?.value;
+        let date2 = this.taxiFormGroup?.get('dateend')?.value;
+
+        let formatedDate1 = formatDate(date1, 'yyyy-MM-dd', 'en');
+        let formatedDate2 = formatDate(date2, 'yyyy-MM-dd', 'en');
+        console.log("formatedDate1 : " + formatedDate1);
+        this.taxiService.getLocationsBetween(taxi.idtaxi, formatedDate1, formatedDate2).subscribe(
           data => {
             this.locations = data;
           }

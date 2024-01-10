@@ -33,8 +33,28 @@
       </div>
     </div>
 
+    <h3>Search Locations By Date</h3>
+    <div class="form-group">
+      <label>Start Date</label>
+      <input type="date" class="form-control" formControlName="datestart"
+             [ngClass]="{'is-invalid' : submitted && taxiFormGroup.controls.datestart.errors}"/>
+      <div *ngIf="submitted && taxiFormGroup.controls.datestart.errors" class="invalid-feedback">
+        <div *ngIf="taxiFormGroup.controls.datestart.errors.required">Start Date is required</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>End Date</label>
+      <input type="date" class="form-control" formControlName="dateend"
+             [ngClass]="{'is-invalid' : submitted && taxiFormGroup.controls.dateend.errors}"/>
+      <div *ngIf="submitted && taxiFormGroup.controls.dateend.errors" class="invalid-feedback">
+        <div *ngIf="taxiFormGroup.controls.dateend.errors.required">End Date is required</div>
+      </div>
+    </div>
+
     <button (click)="onUpdateTaxi()" class="btn btn-success m-4">Save</button>
     <button (click)="onSeeLocations()" class="btn btn-info m-4">Locations</button>
+    <button (click)="onSeeLocationBetweenDates()" class="btn btn-info m-4">See Location By Date</button>
 
   </form>
 </div>

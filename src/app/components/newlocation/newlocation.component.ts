@@ -58,6 +58,7 @@ ngOnInit(): void {
       this.adresseService?.getAdresse(this.locationFormGroup?.value.adressedep).subscribe(selectedAdressedep => {
         this.adresseService?.getAdresse(this.locationFormGroup?.value.adressearr).subscribe(selectedAdressearr => {
 
+
           this.locationFormGroup?.patchValue({
             taxi: selectedTaxi,
             adressedep: selectedAdressedep,
@@ -66,22 +67,46 @@ ngOnInit(): void {
 
           var newloc = this.locationFormGroup?.value;
           newloc.client = this.cliact?.value;
-
-          this.locationService.createLocation(newloc).
-          subscribe({
-            next: data => {
-              alert('sauvegarde ok');
-              this.loc = data;
-              this.newLocation.emit(data);
-            },
-            error: err => {
-              if (err.headers.get("error").includes('Nombre de passagers trop important pour ce taxi')) {
-                alert(`Error The maximum number of passengers for this taxi is ${this.locationFormGroup?.value.taxi.nbremaxpassagers}`);
-              } else {
-                alert(err.headers.get("error"));
-              }
+          if(selectedAdressearr.idadresse == selectedAdressedep.idadresse){
+            if(window.confirm("Are you sure you want to save a location with the same departure and arrival address ?")){
+              this.locationService.createLocation(newloc).
+              subscribe({
+                next: data => {
+                  alert('sauvegarde ok');
+                  this.loc = data;
+                  this.newLocation.emit(data);
+                },
+                error: err => {
+                  if (err.headers.get("error").includes('Nombre de passagers trop important pour ce taxi')) {
+                    alert(`Error The maximum number of passengers for this taxi is ${this.locationFormGroup?.value.taxi.nbremaxpassagers}`);
+                  } else {
+                    alert(err.headers.get("error"));
+                  }
+                }
+              });
             }
-          });
+            else{
+              return;
+            }
+
+          }
+          else{
+            this.locationService.createLocation(newloc).
+            subscribe({
+              next: data => {
+                alert('sauvegarde ok');
+                this.loc = data;
+                this.newLocation.emit(data);
+              },
+              error: err => {
+                if (err.headers.get("error").includes('Nombre de passagers trop important pour ce taxi')) {
+                  alert(`Error The maximum number of passengers for this taxi is ${this.locationFormGroup?.value.taxi.nbremaxpassagers}`);
+                } else {
+                  alert(err.headers.get("error"));
+                }
+              }
+            });
+          }
         });
       });
     });

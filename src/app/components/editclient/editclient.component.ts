@@ -71,6 +71,7 @@ export class EditclientComponent implements OnInit{
   }
 
   onAddLocation(location: Location){
+
     this.locations?.push(location);
   }
 

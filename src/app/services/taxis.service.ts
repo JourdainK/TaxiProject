@@ -35,4 +35,8 @@ private host: string = environment.host;
   public getLocationsByTaxi(id: number): Observable<Location[]> {
     return this.http.get<Location[]>(this.host + '/taxis/idtaxi=' + id );
   }
+
+  public getLocationsBetween(id: number, date1: string, date2: string): Observable<Location[]> {
+    return this.http.get<Location[]>(this.host + '/taxis/idtaxi=' + id + '/date1=' + date1 + '/date2=' + date2);
+  }
 }

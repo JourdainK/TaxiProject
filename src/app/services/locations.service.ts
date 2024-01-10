@@ -44,6 +44,10 @@ export class LocationsService {
     return this.http.get<Location[]>(this.host + '/locations/taxi=' + taxi.idtaxi);
   }
 
+  public getLocationByTaxiAndDates(taxi: Taxi, date1: string, date2: string): Observable<Location[]> {
+    return this.http.get<Location[]>(this.host + '/locations/taxi=' + taxi.idtaxi + '/date1=' + date1 + '/date2=' + date2);
+  }
+
 
   public getLocationByDate(date: Date): Observable<Location[]> {
     return this.http.get<Location[]>(this.host + '/locations/date=' + formatDate(date, 'yyyy-MM-dd', 'en'));
